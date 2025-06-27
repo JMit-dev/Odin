@@ -5,23 +5,25 @@
 #include <GLFW/glfw3.h>
 
 namespace Engine {
-Application &Application::instance() {
-  static Application app;
+Application &Application::instance(const AppDesc &desc) {
+  static Application app(desc);
   return app;
 }
 
-Application::Application() {
-  WindowDesc opts;
-  opts.width = 800;
-  opts.height = 600;
+Application::Application(const AppDesc &d) {
+  if (d.headless)
+    return;
 
-  m_window = std::make_unique<Window>("Odin", opts);
-
-  // if you need the resize callback (optional)
-  // m_window->setResizeCallback([](int w,int h){ /* rebuild projection */ });
+  WindowDesc wopt;
+  wopt.width = d.width;
+  wopt.height = d.height;
+  m_window = std::make_unique<Window>(d.title, wopt);
 }
 
 int Application::run() {
+  if (!m_window)
+    return 0; // headless: nothing to loop over
+
   m_running = true;
   Time::init();
 
@@ -30,8 +32,11 @@ int Application::run() {
     if (m_update)
       m_update(dt);
 
-    if (Input::isKeyPressed(GLFW_KEY_ESCAPE))
-      m_running = false;
+    if (Input::isKeyPressed(GLFW_KEY_ESCAPE)) {
+      bool allowQuit = !m_onQuit || m_onQuit();
+      if (allowQuit)
+        m_running = false;
+    }
 
     m_window->swapBuffers();
     m_window->pollEvents();
