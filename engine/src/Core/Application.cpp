@@ -2,6 +2,7 @@
 #include <Engine/Core/Input.h>
 #include <Engine/Core/Time.h>
 #include <Engine/Core/Window.h>
+#include <GLFW/glfw3.h>
 
 namespace Engine {
 Application &Application::instance() {
@@ -13,21 +14,17 @@ Application::Application() {
   m_window = std::make_unique<Window>("Odin", 800, 600);
 }
 
-void Application::onUpdate(float /*dt*/) {
-  if (Input::isKeyPressed(GLFW_KEY_ESCAPE))
-    m_running = false;
-
-  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
-}
-
 int Application::run() {
   m_running = true;
   Time::init();
 
   while (m_running && !m_window->shouldClose()) {
     float dt = Time::frame();
-    onUpdate(dt);
+    if (m_update)
+      m_update(dt);
+
+    if (Input::isKeyPressed(GLFW_KEY_ESCAPE))
+      m_running = false;
 
     m_window->swapBuffers();
     m_window->pollEvents();
