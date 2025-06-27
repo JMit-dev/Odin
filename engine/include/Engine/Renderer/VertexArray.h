@@ -20,6 +20,13 @@ public:
                           reinterpret_cast<void *>(offset));
   }
 
+  void setIndexBuffer(IndexBuffer &ibo) {
+    bind();
+    ibo.bind();
+    m_ibo = &ibo;
+  }
+  IndexBuffer *indexBuffer() const { return m_ibo; }
+
 private:
   unsigned m_id{};
   IndexBuffer *m_ibo{nullptr};
