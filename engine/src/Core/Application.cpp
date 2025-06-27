@@ -11,7 +11,14 @@ Application &Application::instance() {
 }
 
 Application::Application() {
-  m_window = std::make_unique<Window>("Odin", 800, 600);
+  WindowDesc opts;
+  opts.width = 800;
+  opts.height = 600;
+
+  m_window = std::make_unique<Window>("Odin", opts);
+
+  // if you need the resize callback (optional)
+  // m_window->setResizeCallback([](int w,int h){ /* rebuild projection */ });
 }
 
 int Application::run() {
