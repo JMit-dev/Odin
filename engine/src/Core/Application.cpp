@@ -14,7 +14,11 @@ Application::Application() {
 }
 
 void Application::onUpdate(float /*dt*/) {
-  // draw calls will live here later
+  if (Input::isKeyPressed(GLFW_KEY_ESCAPE))
+    m_running = false;
+
+  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
 }
 
 int Application::run() {
@@ -27,9 +31,6 @@ int Application::run() {
 
     m_window->swapBuffers();
     m_window->pollEvents();
-
-    if (Input::isKeyPressed(GLFW_KEY_ESCAPE))
-      m_running = false;
   }
   return 0;
 }
