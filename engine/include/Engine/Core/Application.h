@@ -1,4 +1,6 @@
-#pragma once
+#ifndef APPLICATION_H
+#define APPLICATION_H
+
 #include <functional>
 #include <memory>
 #include <string>
@@ -37,3 +39,4 @@ private:
   bool m_running{false};
 };
 } // namespace Engine
+#endif
