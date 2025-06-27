@@ -17,6 +17,9 @@ Application::Application(const AppDesc &d) {
   WindowDesc wopt;
   wopt.width = d.width;
   wopt.height = d.height;
+  wopt.lockAspect = true;
+  wopt.aspectRatio = float(d.width) / d.height;
+
   m_window = std::make_unique<Window>(d.title, wopt);
 }
 

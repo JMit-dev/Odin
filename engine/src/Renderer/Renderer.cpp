@@ -1,6 +1,7 @@
+#include <glad/glad.h>
+
 #include <Engine/Renderer/Renderer.h>
 #include <GLFW/glfw3.h>
-#include <glad/glad.h>
 
 namespace Engine::Renderer {
 Renderer::Hook Renderer::s_onBegin = nullptr;
