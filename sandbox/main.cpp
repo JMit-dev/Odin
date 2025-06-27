@@ -22,7 +22,7 @@ int main() {
   vao.addAttribute(1, 3, 6 * sizeof(float), 3 * sizeof(float));
 
   // ── shaders (assets/shaders/simple.vert/frag) ───────────────
-  Shader shader("assets/shaders/simple.vert", "assets/shaders/simple.frag");
+  Shader shader("assets/shaders/triangle.vert", "assets/shaders/triangle.frag");
 
   // ── register per-frame lambda ───────────────────────────────
   app.setUpdateCallback([&](float /*dt*/) {
@@ -35,3 +35,4 @@ int main() {
   });
 
   return app.run();
+}
