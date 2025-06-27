@@ -45,17 +45,17 @@ int main() {
   });
 
   // ── per-frame lambda -----------------------------------------------------
-  app.setUpdateCallback([&](float /*dt*/) {
-    EngineRenderer::beginFrame(); // profiling hook
+  unsigned indices[] = {0, 1, 2};
+  IndexBuffer ibo(indices, 3);
 
+  vao.setIndexBuffer(ibo);
+
+  app.setUpdateCallback([&](float) {
     RenderCommand::setClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     RenderCommand::clear();
-
     shader.bind();
     vao.bind();
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-
-    EngineRenderer::endFrame();
+    glDrawElements(GL_TRIANGLES, ibo.count(), ibo.type(), nullptr);
   });
 
   return app.run();
