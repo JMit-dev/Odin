@@ -3,6 +3,8 @@
 
 #include <glad/glad.h>
 
+#include <Engine/Renderer/IndexBuffer.h>
+
 namespace Engine::Renderer {
 class VertexArray {
 public:
@@ -20,6 +22,7 @@ public:
 
 private:
   unsigned m_id{};
+  IndexBuffer *m_ibo{nullptr};
 };
 } // namespace Engine::Renderer
 
