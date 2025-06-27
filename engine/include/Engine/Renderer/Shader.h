@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SHADER_H
+#define SHADER_H
+
 #include <glad/glad.h>
 
 #include <glm/mat4x4.hpp>
@@ -47,3 +49,4 @@ private:
   static void checkErrors(GLuint id, const std::string &type);
 };
 } // namespace Engine::Renderer
+#endif
